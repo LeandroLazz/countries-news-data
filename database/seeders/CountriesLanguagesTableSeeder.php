@@ -5,7 +5,10 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-
+use App\Models\{
+    Country,
+    Language
+};
 
 class CountriesLanguagesTableSeeder extends Seeder
 {
@@ -16,22 +19,21 @@ class CountriesLanguagesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('countries_languages')->insert([
-            // country_id(1) => Belgium, language_id(1) => nl
-            ['country_id' => 1, 'language_id' => 1],
-
-            // country_id(2) => Canada, language_id(2) => en, language_id(3) => fr
-            ['country_id' => 2, 'language_id' => 2],
-            ['country_id' => 2, 'language_id' => 3],
-
-            // country_id(3) => France, language_id(3) => fr
-            ['country_id' => 3, 'language_id' => 3],
-
-            // country_id(4) => Germany, language_id(4) => de
-            ['country_id' => 4, 'language_id' => 4],
-            
-            // country_id(5) => United kingdom, language_id(2) => en
-            ['country_id' => 5, 'language_id' => 2],
-        ]);
+        // Create an array of countryCode and language to associate
+        $data = [
+            ['countryCode' => 'be', 'language' => 'nl'],
+            ['countryCode' => 'ca', 'language' => 'en'],
+            ['countryCode' => 'ca', 'language' => 'fr'],
+            ['countryCode' => 'fr', 'language' => 'fr'],
+            ['countryCode' => 'de', 'language' => 'de'],
+            ['countryCode' => 'gb', 'language' => 'en']
+        ];
+        
+        // Iterate through the data array and attach a language to a country
+        foreach ($data as $dat) {
+            $country = Country::where('code', $dat['countryCode'])->first();
+            $language = Language::where('language', $dat['language'])->first();
+            $country->languages()->attach($language);
+        }
     }
 }
