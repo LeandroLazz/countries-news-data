@@ -24,4 +24,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
  * Route for retrieving a list of all countries
  * 
  */
-Route::Get('/countries', [CountryController::class, 'index']);
+Route::get('/countries', [CountryController::class, 'index']);
+
+/**
+ * Route for retrieving a selected country by the given country code
+ * 
+ */
+Route::get('/countries/{code}', [CountryController::class, 'show']);
