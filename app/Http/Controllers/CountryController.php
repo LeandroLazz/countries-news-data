@@ -45,10 +45,10 @@ class CountryController extends Controller
     }
 
     /**
-     * Add a new category for a specific country 
+     * Add a new country category 
      *
      * @param string $code the country code
-     * @param string $name the category name
+     * @param string $categoryName the category name
      * 
      * @return \Illuminate\Http\JsonResponse
      */
@@ -66,15 +66,51 @@ class CountryController extends Controller
             return response()->json(['error' => 'Category not found'], 404);
         }
 
-        // Check if the country already have the category
+        // Check if the country already has the category
         if($country->categories()->where('category_id', $category->id)->exists()){
             return response()->json(['error' => 'Category already exists in the country'], 400);
         }        
 
+        // Add a new country category and return a response
         $country->categories()->attach($category);
 
         return response()->json([
             'message' => 'Category successfully added to country'
         ], 201);
+    }
+
+    /**
+     * Remove a country category
+     *
+     * @param string $code the country code
+     * @param string $categoryName the category name
+     * 
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function removeCategory($code, $categoryName)
+    {
+        // Check if the country exists
+        $country = Country::where('code', $code)->first();
+        if (!$country) {
+            return response()->json(['error' => 'Country not found'], 404);
+        }
+
+        // Check if the category exists
+        $category = Category::where('name', $categoryName)->first();
+        if (!$category) {
+            return response()->json(['error' => 'Category not found'], 404);
+        }
+
+        // Check if the country has the category
+        if(!$country->categories()->where('category_id', $category->id)->exists()){
+            return response()->json(['error' => 'Country does not have this category'], 400);
+        }  
+
+        // Remove the country category and return a response
+        $country->categories()->detach($category);
+
+        return response()->json([
+            'message' => 'Category successfully removed from country'
+        ], 200);
     }
 }
