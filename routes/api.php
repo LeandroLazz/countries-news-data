@@ -31,3 +31,9 @@ Route::get('/countries', [CountryController::class, 'index']);
  * 
  */
 Route::get('/countries/{code}', [CountryController::class, 'show']);
+
+/**
+ * Route for add a new category for a specific country 
+ * 
+ */
+Route::post('/countries/{code}/categories/{categoryName}', [CountryController::class, 'addCategory']);
