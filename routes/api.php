@@ -33,7 +33,13 @@ Route::get('/countries', [CountryController::class, 'index']);
 Route::get('/countries/{code}', [CountryController::class, 'show']);
 
 /**
- * Route for add a new category for a specific country 
+ * Route for adding a new country category 
  * 
  */
 Route::post('/countries/{code}/categories/{categoryName}', [CountryController::class, 'addCategory']);
+
+/**
+ * Route for removing country category 
+ * 
+ */
+Route::delete('/countries/{code}/categories/{categoryName}', [CountryController::class, 'removeCategory']);
