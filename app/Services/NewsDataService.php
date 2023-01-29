@@ -67,13 +67,13 @@ class NewsDataService
             'page' => $page,
         ], [
             'country' => 'required|string|size:2',
-            'language' => 'required|string|size:2',
+            'language' => 'required|string',
             'category' => 'required|string',
             'page' => 'required|numeric|min:1',
         ]);
 
         if ($validator->fails()) {
-            throw new ValidationException($validator);
+            throw new \Illuminate\Validation\ValidationException($validator);
         }
     }
 
