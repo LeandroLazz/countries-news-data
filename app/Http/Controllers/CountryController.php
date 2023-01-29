@@ -29,15 +29,15 @@ class CountryController extends Controller
     /**
      * Show the details of a specific country by its code
      *
-     * @param string $code the country code
+     * @param string $countryCode
      * 
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show($code)
+    public function show($countryCode)
     {
         $country = Country::with(['languages', 'categories'])
         ->select('id', 'name', 'code')
-        ->where('code', $code)->first();
+        ->where('code', $countryCode)->first();
 
         // Check if the country exists
         if (!$country) {
@@ -52,15 +52,15 @@ class CountryController extends Controller
     /**
      * Add a new country category 
      *
-     * @param string $code the country code
-     * @param string $categoryName the category name
+     * @param string $countryCode
+     * @param string $categoryName
      * 
      * @return \Illuminate\Http\JsonResponse
      */
-    public function addCategory($code, $categoryName)
+    public function addCategory($countryCode, $categoryName)
     {
         // Check if the country exists
-        $country = Country::where('code', $code)->first();
+        $country = Country::where('code', $countryCode)->first();
         if (!$country) {
             return response()->json(['error' => 'Country not found'], 404);
         }
@@ -87,15 +87,15 @@ class CountryController extends Controller
     /**
      * Remove a country category
      *
-     * @param string $code the country code
-     * @param string $categoryName the category name
+     * @param string $countryCode
+     * @param string $categoryName
      * 
      * @return \Illuminate\Http\JsonResponse
      */
-    public function removeCategory($code, $categoryName)
+    public function removeCategory($countryCode, $categoryName)
     {
         // Check if the country exists
-        $country = Country::where('code', $code)->first();
+        $country = Country::where('code', $countryCode)->first();
         if (!$country) {
             return response()->json(['error' => 'Country not found'], 404);
         }
