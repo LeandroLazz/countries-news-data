@@ -29,7 +29,12 @@ class NewsDataController extends Controller
      */
     public function index($countryCode, $languageCode, $category, $page = 1)
     {
-        $newsData = $this->newsDataService->getNewsData($countryCode, $languageCode, $category, $page);
+        $newsData = $this->newsDataService->getNewsData(
+            $countryCode, 
+            $languageCode, 
+            $category, 
+            $page
+        );
 
         return response()->json([
             'news' => $newsData
@@ -56,13 +61,21 @@ class NewsDataController extends Controller
 
          // Check if the country has a category
          if(!$country->categories()->exists()){
-            return response()->json(['error' => 'Country does not have any category to search'], 400);
+            return response()->json([
+                'error' => 'Country does not have any category to search'
+            ], 400);
         }  
 
+        // Create a string of languageCode and category
         $languageCode = $country->languages()->pluck('language')->implode(',');
         $category = $country->categories()->pluck('name')->implode(',');
 
-        $newsData = $this->newsDataService->getNewsData($countryCode, $languageCode, $category, $page);
+        $newsData = $this->newsDataService->getNewsData(
+            $countryCode, 
+            $languageCode, 
+            $category, 
+            $page
+        );
 
         return response()->json([
             'news' => $newsData

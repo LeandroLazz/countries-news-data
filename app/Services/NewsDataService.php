@@ -45,7 +45,9 @@ class NewsDataService
         } catch (\Exception $e) {
             // Log the error and return a message
             \Log::error($e);
-            return response()->json(['error' => 'Failed to retrieve news data from API'], 500);
+            return response()->json([
+                'error' => 'Failed to retrieve news data from API'
+            ], 500);
         }
     }
 
