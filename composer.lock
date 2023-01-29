@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fe33f98a750b8c5a51b30c78bd3fab21",
+    "content-hash": "196f98f5b4be3cb8279026413618d330",
     "packages": [
         {
             "name": "brick/math",
@@ -1965,6 +1965,59 @@
                 "source": "https://github.com/nette/utils/tree/v3.2.9"
             },
             "time": "2023-01-18T03:26:20+00:00"
+        },
+        {
+            "name": "newsdataio/newsdataapi",
+            "version": "0.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/newsdataapi/php-client.git",
+                "reference": "917b7a6f491271e5b8cc5f63c6cda35504a66843"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/newsdataapi/php-client/zipball/917b7a6f491271e5b8cc5f63c6cda35504a66843",
+                "reference": "917b7a6f491271e5b8cc5f63c6cda35504a66843",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": "^7.3 || ^7.4 || ^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8 || ^9"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "NewsdataIO\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Newsdata",
+                    "email": "contact@newsdata.io",
+                    "homepage": "https://newsdata.io",
+                    "role": "Developer"
+                }
+            ],
+            "description": "The PHP library for use with the Newsdata.io REST API.",
+            "homepage": "https://newsdata.io",
+            "keywords": [
+                "archive",
+                "historical",
+                "latest",
+                "sources"
+            ],
+            "support": {
+                "issues": "https://github.com/newsdataapi/php-client/issues",
+                "source": "https://github.com/newsdataapi/php-client"
+            },
+            "time": "2022-05-31T08:29:28+00:00"
         },
         {
             "name": "nikic/php-parser",
