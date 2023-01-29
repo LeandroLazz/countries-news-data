@@ -53,3 +53,10 @@ Route::delete('/countries/{code}/categories/{categoryName}', [CountryController:
  * 
  */
 Route::get('/news/{countryCode}/{languageCode}/{category}/{page?}', [NewsDataController::class, 'index']);
+
+/**
+ * Route for retrieving news data from newsData.io API  
+ * depending on given country
+ * 
+ */
+Route::get('/country-news/{countryCode}/{page?}', [NewsDataController::class, 'countryNewsData']);
