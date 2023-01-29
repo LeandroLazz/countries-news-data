@@ -19,15 +19,16 @@ class NewsDataController extends Controller
      * Retrieve news data from https://newsdata.io/ based on the given country, 
      * language, and category.
      * 
+     * This function does't use any database informations
      *
      * @param string $countryCode
      * @param string $languageCode
      * @param string $category
-     * @param int $page
+     * @param string $page
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index($countryCode, $languageCode, $category, $page = 1)
+    public function index($countryCode, $languageCode, $category, $page = "")
     {
         $newsData = $this->newsDataService->getNewsData(
             $countryCode, 
@@ -44,13 +45,15 @@ class NewsDataController extends Controller
     /**
      * Retrieve news data from https://newsdata.io/ based on the given country
      * 
+     * This function uses information from the database to request a response
+     * from newsData.io API
      *
      * @param string $countryCode
-     * @param int $page
+     * @param string $page
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function countryNewsData($countryCode, $page = 1)
+    public function countryNewsData($countryCode, $page = "")
     {
         $country = Country::where('code', $countryCode)->first();
 

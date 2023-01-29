@@ -20,7 +20,7 @@ class NewsDataService
      * @param string $countryCode 
      * @param string $languageCode
      * @param string $category
-     * @param int $page
+     * @param string $page
      * @return array
      * @throws ValidationException
      */
@@ -31,20 +31,37 @@ class NewsDataService
 
             $newsdataApiObj = new NewsdataApi($this->apiKey);
             
-            // Pass your desired strings in an array with unique key
+            // Pass your desired strings in an array
             $data = [
                 'country' => $countryCode,
                 'language' => $languageCode,
-                'category' => $category,
-                // 'page' => $page
+                'category' => $category
             ];
             
             $newsData = $newsdataApiObj->get_latest_news($data);
+
+            // $pageArray = $newsData->nextPage;
+
+            // while (true) {
+            //     $response = $newsdataApiObj->get_latest_news(array_merge($data, ['page' => $pageArray]));
+            //     // Do something with the response, such as adding it to an array or storing it in a variable
+            //     $pageArray = $response->nextPage;
+
+            //     dd($pageArray);
+            //     if (!$page) {
+            //         break;
+            //     }
+            // }
+
+
+
             
             return $newsData;
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'error' => $e->validator->messages()
+            ], 400);
         } catch (\Exception $e) {
-            // Log the error and return a message
-            \Log::error($e);
             return response()->json([
                 'error' => 'Failed to retrieve news data from API'
             ], 500);
@@ -57,7 +74,7 @@ class NewsDataService
      * @param string $countryCode
      * @param string $languageCode
      * @param string $category
-     * @param int $page
+     * @param string $page
      * @throws ValidationException
      */
     private function validateInput($countryCode, $languageCode, $category, $page)
@@ -71,7 +88,7 @@ class NewsDataService
             'country' => 'required|string|size:2',
             'language' => 'required|string',
             'category' => 'required|string',
-            'page' => 'required|numeric|min:1',
+            'page' => 'string',
         ]);
 
         if ($validator->fails()) {
