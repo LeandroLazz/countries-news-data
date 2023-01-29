@@ -23,7 +23,7 @@ class CountryController extends Controller
        
        return response()->json([
             'countries' => $countries
-        ]);
+        ], 200);
     }
 
     /**
@@ -37,11 +37,16 @@ class CountryController extends Controller
     {
         $country = Country::with(['languages', 'categories'])
         ->select('id', 'name', 'code')
-        ->where('code', $code)->firstOrFail();
+        ->where('code', $code)->first();
+
+        // Check if the country exists
+        if (!$country) {
+            return response()->json(['error' => 'Country not found'], 404);
+        }
 
         return response()->json([
             'country' => $country
-        ]);
+        ], 200);
     }
 
     /**
