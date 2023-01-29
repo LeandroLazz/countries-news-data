@@ -24,7 +24,7 @@ class NewsDataService
      * @return array
      * @throws ValidationException
      */
-    public function getNewsData($countryCode, $languageCode, $category, $page = 1)
+    public function getNewsData($countryCode, $languageCode, $category, $page)
     {
         try {
             $this->validateInput($countryCode, $languageCode, $category, $page);
