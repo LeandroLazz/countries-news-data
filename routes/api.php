@@ -2,7 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CountryController;
+use App\Http\Controllers\{
+    CountryController,
+    NewsDataController
+};
 
 
 /*
@@ -43,3 +46,10 @@ Route::post('/countries/{code}/categories/{categoryName}', [CountryController::c
  * 
  */
 Route::delete('/countries/{code}/categories/{categoryName}', [CountryController::class, 'removeCategory']);
+
+/**
+ * Route for retrieving news data from newsData.io API  
+ * depending on given country, language and category
+ * 
+ */
+Route::get('/news/{countryCode}/{languageCode}/{category}/{page?}', [NewsDataController::class, 'index']);
