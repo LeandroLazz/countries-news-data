@@ -17,7 +17,7 @@ class NewsDataService
      /**
      * Retrieve news data from the newsdata.io API.
      *
-     * @param string $Code
+     * @param string $countryCode 
      * @param string $languageCode
      * @param string $category
      * @param int $page
@@ -30,15 +30,15 @@ class NewsDataService
             $this->validateInput($countryCode, $languageCode, $category, $page);
 
             $newsdataApiObj = new NewsdataApi($this->apiKey);
-
+            
             // Pass your desired strings in an array with unique key
             $data = [
                 'country' => $countryCode,
                 'language' => $languageCode,
                 'category' => $category,
-                'page' => $page
+                // 'page' => $page
             ];
-
+            
             $newsData = $newsdataApiObj->get_latest_news($data);
             
             return $newsData;
