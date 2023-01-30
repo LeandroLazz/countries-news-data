@@ -44,5 +44,12 @@ The API has the following endpoints
 
 - Retrieve news data from newsData.io API depending on given country. This endpoint will use the database information associated with the country to request:  
 `GET` `/country-news/{countryCode}/{page?}`  
+  
+  
+Acceptable country codes: `be`, `ca`, `fr`, `de`, `gb` etc.  
+
+Acceptable language codes: `en`, `fr`, `de`, `nl` etc.  
+
+Acceptable categories: `business`, `entertainment`, `environment`, `food`, `health`, `politics`, `science`, `sports`, `technology`, `top`, `world`  
 
 > Note: The `{page?}` parameter in the GET endpoints is optional and used for pagination.
