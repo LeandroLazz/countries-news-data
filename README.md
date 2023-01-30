@@ -31,9 +31,8 @@ The API has the following endpoints
   `GET` `/countries`  
 
 - Retrieve a selected country by the given country code:  
-  `GET` `/countries/{code}`
-  - `code`: a two-letter country code (e.g. `be` for Belgium, `ca` for Canada, `fr` for France, `de` for Germany, `gb` for United Kingdom, etc.)  
-
+  `GET` `/countries/{code}`  
+  
 - Add a new country category:  
   `POST` `/countries/{code}/categories/{categoryName}`  
 
@@ -41,16 +40,18 @@ The API has the following endpoints
   `DELETE` `/countries/{code}/categories/{categoryName}`  
 
 - Retrieve news data from newsData.io API depending on given country, language and category:  
-  `GET` `/news/{countryCode}/{languageCode}/{category}/{page?}`  
-  - `countryCode`: a two-letter country code (e.g. `be` for Belgium, `ca` for Canada, `fr` for France, `de` for Germany, `gb` for United Kingdom, etc.)
-  - `languageCode`: a two-letter language code (e.g. `en` for English, `fr` for French, `de` for German, `nl` for Dutch, etc.)
-  - `category`: a category of news (e.g. `business`, `entertainment`, `environment`, `food`, `health`, `politics`, `science`, `sports`, `technology`, `top`, `world`, etc.)
-  - `page?` (optional): a number used for pagination  
+  `GET` `/news/{countryCode}/{languageCode}/{category}/{page?}`   
 
 - Retrieve news data from newsData.io API depending on given country. This endpoint will use the database information associated with the country to request:  
   `GET` `/country-news/{countryCode}/{page?}`  
-  - `countryCode`: a two-letter country code (e.g. `be` for Belgium, `ca` for Canada, `fr` for France, `de` for Germany, `gb` for United Kingdom, etc.)
-  - `page?` (optional): a number used for pagination  
+
+  > - `code` or `countryCode`: a two-letter country code (e.g. `be` for Belgium, `ca` for Canada, `fr` for France, `de` for Germany, `gb` for United Kingdom, etc.)  
+
+  > - `language` or `languageCode`: a two-letter language code (e.g. `en` for English, `fr` for French, `de` for German, `nl` for Dutch, etc.)  
+
+  > - `category` or `categoryName`: a category of news (e.g. `business`, `entertainment`, `environment`, `food`, `health`, `politics`, `science`, `sports`, `technology`, `top`, `world`)  
+
+  > - `page?` (optional): a number used for pagination  
   
 
 > Note: The `{page?}` parameter in the GET endpoints is optional and used for pagination.
