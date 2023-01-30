@@ -28,28 +28,29 @@
 The API has the following endpoints
 
 - Retrieve a list of all countries:  
-`GET` `/countries`  
+  `GET` `/countries`  
 
 - Retrieve a selected country by the given country code:  
-`GET` `/countries/{code}`  
+  `GET` `/countries/{code}`
+  - `code`: a two-letter country code (e.g. `be` for Belgium, `ca` for Canada, `fr` for France, `de` for Germany, `gb` for United Kingdom, etc.)  
 
 - Add a new country category:  
-`POST` `/countries/{code}/categories/{categoryName}`  
+  `POST` `/countries/{code}/categories/{categoryName}`  
 
 - Remove country category:  
-`DELETE` `/countries/{code}/categories/{categoryName}`  
+  `DELETE` `/countries/{code}/categories/{categoryName}`  
 
 - Retrieve news data from newsData.io API depending on given country, language and category:  
-`GET` `/news/{countryCode}/{languageCode}/{category}/{page?}`  
+  `GET` `/news/{countryCode}/{languageCode}/{category}/{page?}`  
+  - `countryCode`: a two-letter country code (e.g. `be` for Belgium, `ca` for Canada, `fr` for France, `de` for Germany, `gb` for United Kingdom, etc.)
+  - `languageCode`: a two-letter language code (e.g. `en` for English, `fr` for French, `de` for German, `nl` for Dutch, etc.)
+  - `category`: a category of news (e.g. `business`, `entertainment`, `environment`, `food`, `health`, `politics`, `science`, `sports`, `technology`, `top`, `world`, etc.)
+  - `page?` (optional): a number used for pagination  
 
 - Retrieve news data from newsData.io API depending on given country. This endpoint will use the database information associated with the country to request:  
-`GET` `/country-news/{countryCode}/{page?}`  
+  `GET` `/country-news/{countryCode}/{page?}`  
+  - `countryCode`: a two-letter country code (e.g. `be` for Belgium, `ca` for Canada, `fr` for France, `de` for Germany, `gb` for United Kingdom, etc.)
+  - `page?` (optional): a number used for pagination  
   
-  
-Acceptable country codes: `be`, `ca`, `fr`, `de`, `gb` etc.  
-
-Acceptable language codes: `en`, `fr`, `de`, `nl` etc.  
-
-Acceptable categories: `business`, `entertainment`, `environment`, `food`, `health`, `politics`, `science`, `sports`, `technology`, `top`, `world`  
 
 > Note: The `{page?}` parameter in the GET endpoints is optional and used for pagination.
