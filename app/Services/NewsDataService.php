@@ -78,10 +78,8 @@ class NewsDataService
             $nextPage = $newsData->nextPage;
 
             // Store next page in cache if exists
-            if ($nextPage) {
-                $this->storeNextPageInCache($cacheKey, $page + 1, $nextPage);
-            }
-
+            $this->storeNextPageInCacheIfExists($cacheKey, $page + 1, $nextPage);
+            
             return $newsData;
         }
 
@@ -91,11 +89,9 @@ class NewsDataService
         if ($cacheDataPage) {
             $newsData = $newsdataApiObj->get_latest_news(array_merge($requestData, ['page' => $cacheDataPage]));
             $nextPage = $newsData->nextPage;
-
+            
             // Store next page in cache if exists
-            if ($nextPage) {
-                $this->storeNextPageInCache($cacheKey, $page + 1, $nextPage);
-            }
+            $this->storeNextPageInCacheIfExists($cacheKey, $page + 1, $nextPage);
 
             return $newsData;
         }
@@ -124,9 +120,7 @@ class NewsDataService
         $nextPage = $newsData->nextPage;
 
         // Store next page in cache if exists
-        if ($nextPage) {
-            $this->storeNextPageInCache($cacheKey, $currentPageIndex + 1, $nextPage);    
-        }
+        $this->storeNextPageInCacheIfExists($cacheKey, $currentPageIndex + 1, $nextPage);
 
         // Recursively call if next page exists and current page is smaller than page 
         if ($nextPage && $currentPageIndex < $page) {
@@ -154,9 +148,11 @@ class NewsDataService
      * 
      * @return void
      */
-    private function storeNextPageInCache($cacheKey, $pageIndex, $nextPage)
+    private function storeNextPageInCacheIfExists($cacheKey, $pageIndex, $nextPage)
     {
-        Redis::set($cacheKey.$pageIndex, $nextPage);
+        if ($nextPage) {
+            Redis::set($cacheKey.$pageIndex, $nextPage);
+        }
     }
 
     /**
