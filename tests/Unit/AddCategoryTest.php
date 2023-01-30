@@ -2,9 +2,14 @@
 
 namespace Tests\Unit;
 
-use PHPUnit\Framework\TestCase;
+use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Models\{
+    Country,
+    Category
+};
 
-class CountryTest extends TestCase
+class AddCategoryTest extends TestCase
 {
     /**
      * A basic unit test example.
