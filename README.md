@@ -14,10 +14,11 @@
 5. Run `php artisan migrate` to run the migrations and setup the database schema
 6. Run `php artisan db:seed` to seed the database with sample data
 
-> Note: Make sure your Redis and MySQL servers are running before starting the development server.
 ## Running the API
 1. Run `php artisan serve` to start the built-in PHP development server
 2. Your API will now be accessible at `http://localhost:8000`
+
+> Note: Make sure your Redis and MySQL servers are running before starting the development server.
 
 ## Testing the Endpoints
 1. Run `php artisan test` to run the unit tests, there are only few unit test available, just to show how it worts in the API
@@ -26,11 +27,17 @@
 ## API Endpoints
 The API has the following endpoints
 
-- Retrieve a list of all countries: `GET` `/countries`
-- Retrieve a selected country by the given country code: `GET` `/countries/{code}`
-- Add a new country category: `POST` `/countries/{code}/categories/{categoryName}`
-- Remove country category: `DELETE` `/countries/{code}/categories/{categoryName}`
-- Retrieve news data from newsData.io API depending on given country, language and category: `GET` `/news/{countryCode}/{languageCode}/{category}/{page?}`
-- Retrieve news data from newsData.io API depending on given country. This endpoint will use the database information associated with the country to request: `GET` `/country-news/{countryCode}/{page?}` 
+- Retrieve a list of all countries: 
+`GET` `/countries`
+- Retrieve a selected country by the given country code: 
+`GET` `/countries/{code}`
+- Add a new country category: 
+`POST` `/countries/{code}/categories/{categoryName}`
+- Remove country category: 
+`DELETE` `/countries/{code}/categories/{categoryName}`
+- Retrieve news data from newsData.io API depending on given country, language and category: 
+`GET` `/news/{countryCode}/{languageCode}/{category}/{page?}`
+- Retrieve news data from newsData.io API depending on given country. This endpoint will use the database information associated with the country to request: 
+`GET` `/country-news/{countryCode}/{page?}` 
 
 > Note: The `{page?}` parameter in the GET endpoints is optional and used for pagination.
