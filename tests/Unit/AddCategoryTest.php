@@ -3,10 +3,6 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
-use App\Models\{
-    Country,
-    Category
-};
 
 class AddCategoryTest extends TestCase
 {
