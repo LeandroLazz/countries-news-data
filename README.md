@@ -45,7 +45,7 @@ The API has the following endpoints
 - Retrieve news data from newsData.io API depending on given country. This endpoint will use the database information associated with the country to request:  
   `GET` `/country-news/{countryCode}/{page?}`  
 
-Acceptable inputs for country, language and category  
+# Acceptable inputs for country, language and category  
 
 - `code` or `countryCode`: a two-letter country code (e.g. `be` for Belgium, `ca` for Canada, `fr` for France, `de` for Germany, `gb` for United Kingdom, etc.)  
 
