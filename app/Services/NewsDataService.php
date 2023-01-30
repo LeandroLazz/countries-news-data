@@ -119,6 +119,7 @@ class NewsDataService
      */
     private function getNewsDataFromAPIAndStorePagesInCache($newsdataApiObj, $requestData, $cacheKey, $page, $currentPageIndex = 1)
     {
+        // Get news data first page from API
         $newsData = $newsdataApiObj->get_latest_news($requestData);
         $nextPage = $newsData->nextPage;
 
@@ -127,6 +128,7 @@ class NewsDataService
             $this->storeNextPageInCache($cacheKey, $currentPageIndex + 1, $nextPage);    
         }
 
+        // Recursively call if next page exists and current page is smaller than page 
         if ($nextPage && $currentPageIndex < $page) {
             $currentPageIndex++;
             $requestData['page'] = $nextPage;
