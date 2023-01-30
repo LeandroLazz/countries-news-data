@@ -107,7 +107,7 @@ class CountryController extends Controller
         }
 
         // Check if the country has the category
-        if(!$country->categories()->where('category_id', $category->id)->exists()){
+        if (!$country->categories()->where('category_id', $category->id)->exists()) {
             return response()->json([
                 'error' => 'Country does not have this category'
             ], 400);
