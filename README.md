@@ -28,16 +28,22 @@
 The API has the following endpoints
 
 - Retrieve a list of all countries: 
-&nbsp;`GET` `/countries`
+&nbsp;
+`GET` `/countries`
 - Retrieve a selected country by the given country code:
-&nbsp;`GET` `/countries/{code}`
+&nbsp;
+`GET` `/countries/{code}`
 - Add a new country category: 
-&nbsp;`POST` `/countries/{code}/categories/{categoryName}`
+&nbsp;
+`POST` `/countries/{code}/categories/{categoryName}`
 - Remove country category: 
-&nbsp;`DELETE` `/countries/{code}/categories/{categoryName}`
+&nbsp;
+`DELETE` `/countries/{code}/categories/{categoryName}`
 - Retrieve news data from newsData.io API depending on given country, language and category: 
-&nbsp;`GET` `/news/{countryCode}/{languageCode}/{category}/{page?}`
+&nbsp;
+`GET` `/news/{countryCode}/{languageCode}/{category}/{page?}`
 - Retrieve news data from newsData.io API depending on given country. This endpoint will use the database information associated with the country to request: 
-&nbsp;`GET` `/country-news/{countryCode}/{page?}` 
+&nbsp;
+`GET` `/country-news/{countryCode}/{page?}` 
 
 > Note: The `{page?}` parameter in the GET endpoints is optional and used for pagination.
