@@ -24,11 +24,11 @@ class NewsDataController extends Controller
      * @param string $countryCode
      * @param string $languageCode
      * @param string $category
-     * @param string $page
+     * @param int $page
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index($countryCode, $languageCode, $category, $page = "")
+    public function index($countryCode, $languageCode, $category, $page = 1)
     {
         $newsData = $this->newsDataService->getNewsData(
             $countryCode, 
@@ -49,11 +49,11 @@ class NewsDataController extends Controller
      * from newsData.io API
      *
      * @param string $countryCode
-     * @param string $page
+     * @param int $page
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function countryNewsData($countryCode, $page = "")
+    public function countryNewsData($countryCode, $page = 1)
     {
         $country = Country::where('code', $countryCode)->first();
 
@@ -63,7 +63,7 @@ class NewsDataController extends Controller
         }
 
          // Check if the country has a category
-         if(!$country->categories()->exists()){
+         if (!$country->categories()->exists()) {
             return response()->json([
                 'error' => 'Country does not have any category to search'
             ], 400);
