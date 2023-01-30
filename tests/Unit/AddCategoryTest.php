@@ -23,7 +23,7 @@ class AddCategoryTest extends TestCase
         $response->assertStatus(404);
     }
 
-     /**
+    /**
      * Test category not found
      *
      * @return void
@@ -34,6 +34,18 @@ class AddCategoryTest extends TestCase
 
         $response->assertJson(['error' => 'Category not found']);
         $response->assertStatus(404);
+    }
+
+    /**
+     * Test category already exists in the country
+     *
+     * @return void
+     */
+    public function test_category_already_exists_in_country() {
+        $response = $this->post('api/countries/ca/categories/entertainment');
+
+        $response->assertJson(['error' => 'Category already exists in the country']);
+        $response->assertStatus(400);
     }
 
 }
