@@ -65,6 +65,13 @@ class NewsDataService
         // Cache key for redis
         $cacheKey = "news-data-{$countryCode}-{$languageCode}-{$category}-";
 
+        // Get news data from cache if exists
+        if (Redis::exists($cacheKey.$page)) {
+            $newsDataCachePage = json_decode(Redis::get($cacheKey.$page));
+
+            return $newsDataCachePage;
+        }
+
         // Request data to be sent to API
         $requestData = [
             'country' => $countryCode,
@@ -72,33 +79,8 @@ class NewsDataService
             'category' => $category
         ];
 
-        // Get news data from API if page is 1
-        if ($page == 1) {
-            $newsData = $newsdataApiObj->get_latest_news($requestData);
-            $nextPage = $newsData->nextPage;
-
-            // Store next page in cache if exists
-            $this->storeNextPageInCacheIfExists($cacheKey, $page + 1, $nextPage);
-            
-            return $newsData;
-        }
-
-        // Get news data from cache
-        $cacheDataPage = Redis::get($cacheKey.$page);
-
-        if ($cacheDataPage) {
-            $newsData = $newsdataApiObj->get_latest_news(array_merge($requestData, ['page' => $cacheDataPage]));
-            $nextPage = $newsData->nextPage;
-            
-            // Store next page in cache if exists
-            $this->storeNextPageInCacheIfExists($cacheKey, $page + 1, $nextPage);
-
-            return $newsData;
-        }
-
-        // Get news data from API and store all pages in cache
-        $newsData = $this->getNewsDataFromAPIAndStorePagesInCache($newsdataApiObj, $requestData, $cacheKey, $page);
-
+        $newsData = $this->getNewsDataFromAPIAndStoreInCache($newsdataApiObj, $requestData, $cacheKey, $page);
+        
         return $newsData;
     }
 
@@ -113,14 +95,15 @@ class NewsDataService
      * 
      * @return array
      */
-    private function getNewsDataFromAPIAndStorePagesInCache($newsdataApiObj, $requestData, $cacheKey, $page, $currentPageIndex = 1)
+    private function getNewsDataFromAPIAndStoreInCache($newsdataApiObj, $requestData, $cacheKey, $page, $currentPageIndex = 1)
     {
-        // Get news data first page from API
+        // Get news data page from API
         $newsData = $newsdataApiObj->get_latest_news($requestData);
         $nextPage = $newsData->nextPage;
+        $newsDataJsonEncode = json_encode($newsData);
 
-        // Store next page in cache if exists
-        $this->storeNextPageInCacheIfExists($cacheKey, $currentPageIndex + 1, $nextPage);
+        // Store news data in cache if exists
+        $this->storeNewsDataInCacheIfExistsTest($cacheKey, $currentPageIndex, $newsDataJsonEncode);
 
         // Recursively call if next page exists and current page is smaller than page 
         if ($nextPage && $currentPageIndex < $page) {
@@ -128,7 +111,7 @@ class NewsDataService
             $requestData['page'] = $nextPage;
             
             // Recursively call this method until no next page exists
-            $this->getNewsDataFromAPIAndStorePagesInCache($newsdataApiObj, $requestData, $cacheKey, $page, $currentPageIndex);
+            $this->getNewsDataFromAPIAndStoreInCache($newsdataApiObj, $requestData, $cacheKey, $page, $currentPageIndex);
         }
 
         // Validate page
@@ -140,18 +123,18 @@ class NewsDataService
     }
 
     /**
-     * Store next page in cache.
+     * Store news data in cache.
      * 
      * @param string $cacheKey
      * @param int $pageIndex
-     * @param string $nextPage
+     * @param string $newsData
      * 
      * @return void
      */
-    private function storeNextPageInCacheIfExists($cacheKey, $pageIndex, $nextPage)
+    private function storeNewsDataInCacheIfExistsTest($cacheKey, $pageIndex, $newsData)
     {
-        if ($nextPage) {
-            Redis::set($cacheKey.$pageIndex, $nextPage);
+        if ($newsData) {
+            Redis::set($cacheKey.$pageIndex, $newsData);
         }
     }
 
