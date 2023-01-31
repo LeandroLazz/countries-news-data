@@ -111,7 +111,7 @@ class NewsDataService
             $requestData['page'] = $nextPage;
             
             // Recursively call this method until no next page exists
-            $this->getNewsDataFromAPIAndStoreInCache($newsdataApiObj, $requestData, $cacheKey, $page, $currentPageIndex);
+            return $this->getNewsDataFromAPIAndStoreInCache($newsdataApiObj, $requestData, $cacheKey, $page, $currentPageIndex);
         }
 
         // Validate page
